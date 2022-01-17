@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// App.tsx
+import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
+import theme from "./theme";
+import { ConnectButton, Layout } from "./components";
+import AccountModal from "./components/AccountModal";
 
-function App() {
+export default function App() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // lets us use Chakra UI syntax across our app:
+    <ChakraProvider theme={theme}>
+      <Layout>
+        {/* Our connect button will only handle opening */}
+        <ConnectButton handleOpenModal={onOpen} />
+        {/* Our Account modal will handle open state & closing */}
+        <AccountModal isOpen={isOpen} onClose={onClose} />
+      </Layout>
+    </ChakraProvider>
   );
 }
-
-export default App;
